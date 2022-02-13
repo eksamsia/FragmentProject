@@ -50,6 +50,10 @@ public class SimpleFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+     public static SimpleFragment newInstance(){
+        SimpleFragment fragment = new SimpleFragment();
+        return fragment;
+     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
