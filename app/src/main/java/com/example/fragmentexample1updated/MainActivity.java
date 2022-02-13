@@ -8,8 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SimpleFragment.OnFragmentInteractionListener {
 
     private Button openButton;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean isFragmentDisplayed = false ;
 
     private final String FRAGMENT_STATE = "fragment-state";
+    private int mCurrentChoice = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        SimpleFragment simpleFragment = SimpleFragment.newInstance();
+        SimpleFragment simpleFragment = SimpleFragment.newInstance(mCurrentChoice);
         fragmentTransaction.add(R.id.fragment_container, simpleFragment).addToBackStack(null).commit();
 
         isFragmentDisplayed = true;
@@ -70,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
 //        configuration changes
         outState.putBoolean(FRAGMENT_STATE, isFragmentDisplayed);
 
+    }
+
+    @Override
+    public void onRadioButtonChoiceChecked(int choice) {
+        mCurrentChoice = choice;
+        Toast.makeText(this, "choice is" + String.valueOf(choice), Toast.LENGTH_SHORT).show();
     }
 }
